@@ -43,7 +43,7 @@ public class vehicleSelected : MonoBehaviour {
 		}
 		ID = vehicleList[i];
 		vehicleSelectedText.text = "controlling " + ID;
-		Debug.Log (j);
+//		Debug.Log (j);
 		if (j == 10) {
 
 			destroyPins();
