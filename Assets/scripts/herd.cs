@@ -3,13 +3,13 @@ using System.Collections;
 
 public class herd : MonoBehaviour {
 
-	public int x;
-	public int y;
+	public float x;
+	public float y;
 	public int w;
 	public int h;
 //	private Bounds range;
-	public int timer;
-	public int timerMax = 300;
+	public float timer;
+	public float timerMax = 20;
 	public int moveRange = 3;
 	public int grazingRange = 10;
 
@@ -17,8 +17,9 @@ public class herd : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		this.x = 0;
-		this.y = 0;
+		this.x = this.transform.position.x;
+		this.y = this.transform.position.z;
+//		this.y = 0;
 		this.w = 40;
 		this.h = 40;
 		this.timer = timerMax;
@@ -29,12 +30,12 @@ public class herd : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-		timer--;
+		timer -= Time.deltaTime;
 		if (timer < 0) {
-			timer = timerMax;
-			Debug.Log("Time to move");
-			int rx;
-			int ry;
+			timer = timerMax * Random.Range (0.9f,1.2f);
+//			Debug.Log("Time to move");
+			float rx;
+			float ry;
 			if(this.transform.position.x>grazingRange){
 				rx = Random.Range(-moveRange,0);
 			}else if(this.transform.position.x<-grazingRange){
@@ -51,10 +52,11 @@ public class herd : MonoBehaviour {
 			}
 //			int rx = Random.Range(-10,10);
 //			int ry = Random.Range (-10,10);
-			x+= rx;
-			y+= ry;
+			x += rx;
+			y += ry;
 			agent.SetDestination(new Vector3(x,0,y));
-			Debug.Log ("New location: " + x + ", " + y);
+//			Debug.Log ("Moving by: " + rx + ", " + ry);
+//			Debug.Log ("New location: " + x + ", " + y);
 		}
 	}
 }
