@@ -15,6 +15,10 @@ public class herd : MonoBehaviour {
 
 	private NavMeshAgent agent;
 
+	public Vector3 dest;
+
+	public bool moving;
+
 	// Use this for initialization
 	void Start () {
 		this.x = this.transform.position.x;
@@ -24,8 +28,9 @@ public class herd : MonoBehaviour {
 		this.h = 40;
 		this.timer = timerMax;
 		this.agent = GetComponent<NavMeshAgent>();
+		dest = this.transform.position;
 //		this.range = new Bounds (Vector3 (0, 0, 0), Vector3 (10, 0, 10));
-
+		moving = false;
 	}
 
 	// Update is called once per frame
@@ -54,9 +59,17 @@ public class herd : MonoBehaviour {
 //			int ry = Random.Range (-10,10);
 			x += rx;
 			y += ry;
-			agent.SetDestination(new Vector3(x,0,y));
+			dest = new Vector3(x,0,y);
+			agent.SetDestination(dest);
 //			Debug.Log ("Moving by: " + rx + ", " + ry);
 //			Debug.Log ("New location: " + x + ", " + y);
+			moving = true;
 		}
+
+		if (Vector3.Distance (this.transform.position, this.dest) <= 1) {
+			// has reached destination
+			moving = false;
+		}
+
 	}
 }
